@@ -1,0 +1,47 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    # ports:
+    #   - '5672:5672'  # Puerto para RabbitMQ
+    #   - '15672:15672'  # Puerto para la interfaz de administración de RabbitMQ
+    environment:
+      - RABBITMQ_DEFAULT_USER=jsacristan
+      - RABBITMQ_DEFAULT_PASS=Euuhtysdf2323_#dOuY441334
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+        order: stop-first
+        failure_action: rollback
+        monitor: 30s
+        max_failure_ratio: 0.5
+  postgres:
+    image: postgres
+    # ports:
+    #   - '5432:5432'  # Puerto para PostgreSQL
+    environment:
+      - POSTGRES_USER=jsacristan
+      - POSTGRES_PASSWORD=jsdutySDS27781doop
+      - POSTGRES_DB=cardLanguage
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+  springboot:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: cards-api
+    ports:
+      - '8080:8080'  # Puerto para Spring Boot
+    depends_on:
+      - rabbitmq
+      - postgres
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=jsacristan
+      - SPRING_RABBITMQ_PASSWORD=Euuhtysdf2323_#dOuY441334
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/cardLanguage
+      - SPRING_DATASOURCE_USERNAME=jsacristan
+      - SPRING_DATASOURCE_PASSWORD=jsdutySDS27781doop
