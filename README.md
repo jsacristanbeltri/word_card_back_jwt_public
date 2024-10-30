@@ -1,9 +1,7 @@
 # English card backend - Spring Boot
 
-
-
-
-Este proyecto es una aplicación Java Spring Boot que se ejecuta en un entorno de contenedores con Docker Compose.
+Este proyecto backend es una aplicación REST API con Java Spring Boot, forma parte de un sistema de flash card de vocabulario. 
+Se ejecuta en un entorno de contenedores con Docker Compose.
 Los servicios incluyen una base de datos PostgreSQL, un servicio de mensajería RabbitMQ, un servidor SMTP para correos, 
 y herramientas de monitoreo como Grafana y Prometheus.
 
